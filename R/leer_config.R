@@ -14,12 +14,26 @@ leerConfig <- function(path){
   library(XML)
   configPath <- paste0(path, "config/config.xml")
   
-  #Leer el xml y convertirlo a lista
+  tryCatch(expr = {
+    #Leer el xml y convertirlo a lista
   
   library("methods")
   result <- xmlParse(file = configPath)
+  config <- xmlToList(result, addAttributes = TRUE, simplify = FALSE)
+    
+  }, error = function(e){
+    
+    logerror("Config no encontrado en su ruta. Verifica que se llama config.xml",
+             
+             )
+  })
   
-  lista <- xmlToList(result, addAttributes = TRUE, simplify = FALSE)
-  lista
+  loginfo("Config leido", logger = 'log')
   
-  }
+  config
+  
+  config$columnas$predictorasNumericas <- trimws(strsplit(config$columnas$predictorasNumericas, ",")[[1]])
+  config$columnas$predictorasNumericas
+  
+  
+}
