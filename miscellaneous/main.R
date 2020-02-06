@@ -7,7 +7,7 @@ carpetaScripts <- paste0(Directorio, "R/")
 
 lapply(paste0("R/", list.files(path = "R/", recursive = TRUE)), source)
 
-#debug(clasificarContactosApp)
+debug(clasificarContactosApp)
 
 clasificarContactosApp(Directorio)
 
