@@ -16,6 +16,7 @@ leerConfig <- function(path){
   
   tryCatch(expr = {
     #Leer el xml y convertirlo a lista
+    
   
   library("methods")
   result <- xmlParse(file = configPath)
@@ -24,16 +25,13 @@ leerConfig <- function(path){
   }, error = function(e){
     
     logerror("Config no encontrado en su ruta. Verifica que se llama config.xml",
-             
-             )
+             logger = 'log')
+    stop()
   })
   
   loginfo("Config leido", logger = 'log')
   
-  config
-  
   config$columnas$predictorasNumericas <- trimws(strsplit(config$columnas$predictorasNumericas, ",")[[1]])
-  config$columnas$predictorasNumericas
-  
+  loginfo("Llegas aqui=?", logger = 'log')
   
 }
