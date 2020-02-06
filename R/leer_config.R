@@ -32,10 +32,20 @@ leerConfig <- function(path){
   })
   
   loginfo("Config leido", logger = 'log')
-  browser()
+  
   validateConfigNodes(config)
   
   config$columnas$predictorasNumericas <- trimws(strsplit(config$columnas$predictorasNumericas, ",")[[1]])
+  
+  config$columnas$mails$ratios <- as.logical(config$columnas$mails$ratios)
+  
+  separadoresAceptados <- config$input$sep %in% c(",", ";")
+  
+  if(!separadoresAceptados){
+    
+    logerror("Sep solo puede valer ',' o ';' ", logger = 'log')
+    stop()
+  }
   
   return(config)
   
@@ -49,24 +59,23 @@ leerConfig <- function(path){
 #'
 validateConfigNodes <- function(config){
     
-    nodoPrincipal <- identical(names(config), c("input", "columnas"))
-    
-   nodoInput <- identical(names(config$input), c("name", "sep"))
-   
-   nodoColumnas <- identical(names(config$columnas), c("predictorasNumericas","fuenteOriginal",
-                                                       "dominio_mail", "fechas", "target", "llamada"))
-   
-   
-   nodoFechas <- identical(names(config$columnas$fechas), c("creacion", "ultima_mod", "envio_ultimo",
-                                                            "apertura_primero", "envio_primero",
-                                                            "visita_primero", "visita_ultimo",
-                                                            "tiempos", "visita_primero", "visita_ultimo" ))
-   
-   
-   nodos <- c("nodoPrincipal" = nodoPrincipal, "nodoInput" = nodoInput,
-              "nodoColumnas" = nodoColumnas, "nodoFechas" = nodoFechas)
-   
-   check <- all(nodos)
+  nodoPrincipal <- identical(names(config), c("input", "columnas"))
+  nodoInput <- identical(names(config$input), c("name", "sep"))
+  nodoColumnas <- identical(names(config$columnas), c("ID", "predictorasNumericas",
+                                                      "fuenteOriginal", "dominio_mail",
+                                                      "fechas", "mails", "target", "llamada"))
+  
+  nodoFechas <- identical(names(config$columnas$fechas), c("creacion", "ultima_mod",  "apertura_ultimo",
+                                                           "envio_ultimo","apertura_primero",
+                                                           "envio_primero", "visita_primero",
+                                                           "visita_ultimo", "tiempos"))
+  
+  nodoMails <- identical(names(config$columnas$mails), c("mailsDl", "mailsCl", "mailsOp", "ratios"))  
+  
+  nodos <- c("nodoPrincipal" = nodoPrincipal, "nodoInput" = nodoInput, "nodoColumnas" = nodoColumnas, 
+             "nodoFechas" = nodoFechas,"nodoMails" = nodoMails)
+  
+  check <- all(nodos)
    
    if(!check){
      
