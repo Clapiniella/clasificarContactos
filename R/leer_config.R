@@ -47,10 +47,14 @@ leerConfig <- function(path){
     stop()
   }
   
+  config$columnas$fechas$tiempos <- trimws(strsplit(config$columnas$fechas$tiempos, ",")[[1]])
+  
+  
   return(config)
   
   }
   
+
 #' @Title validateConfigNodes
 #'
 #' @param config 

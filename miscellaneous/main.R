@@ -11,4 +11,4 @@ debug(clasificarContactosApp)
 
 clasificarContactosApp(Directorio)
 
-#undebug(clasificarContactosApp)
+undebug(clasificarContactosApp)
