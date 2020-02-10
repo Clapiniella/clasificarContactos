@@ -1,5 +1,5 @@
 
-#' Title
+#' @title preProcesarDatos
 #'
 #' @param datos 
 #' @param config 
@@ -9,7 +9,7 @@
 #'
 #' @examples
 preProcesarDatos <- function(datos, config){
-  
+
   columnasUtilizadas <- c(config$columnas$ID, config$columnas$predictorasNumericas,
                           config$columnas$fuenteOriginal,config$columnas$dominio_mail,
                           config$columnas$fechas$creacion, config$columnas$fechas$ultima_mod,
@@ -44,9 +44,9 @@ preProcesarDatos <- function(datos, config){
     datos <- createRatios(datos, config)
     
   }
-  browser()  
+  
   datos <- generarColumnas(datos, config)
-  browser()
+  
   
   datosSplit <- splitearDatos(datos, config)
   
@@ -94,27 +94,19 @@ preProcesarDatos <- function(datos, config){
                                     units = 'hours'))
     
     
-    browser()
     datos$diffUltimo <- abs(difftime(as.POSIXct(datos[, config$columnas$fechas$apertura_ultimo]),
                                      as.POSIXct(datos[, config$columnas$fechas$envio_ultimo]),
                                      units = 'hours'))
     
     
-    
-    
-    
     datos$diffPrimero <- abs(difftime(as.POSIXct(datos[, config$columnas$fechas$apertura_primero]),
-                                      
                                       as.POSIXct(datos[, config$columnas$fechas$envio_primero]),
-                                      
                                       units = 'hours'))
     
     
     
     datos$diffVisita <- abs(difftime(as.POSIXct(datos[, config$columnas$fechas$visita_primero]),
-                                     
                                      as.POSIXct(datos[, config$columnas$fechas$visita_ultimo]),
-                                     
                                      units = 'hours'))
     
     
@@ -182,9 +174,7 @@ positivos <- c("Cerrado Objetivo Alcanzado", "Entrevista programada",
 negativos <- c("Cerrada", "Contacto No Válido", "Descartado Demasiados Intentos",
                  "Entrevista no superada", "Oportunidad Fallida")
 
-browser()
-
-#Evaluar contactos
+#Evaluar por estado
 contactosBuenos <- datos[datos[, config$columnas$target] %in% positivos, ]
 contactosMalos <- datos[datos[, config$columnas$target] %in% negativos, ]
 

@@ -55,7 +55,7 @@ leerConfig <- function(path){
   }
   
 
-#' @Title validateConfigNodes
+#' @title validateConfigNodes
 #'
 #' @param config 
 #'

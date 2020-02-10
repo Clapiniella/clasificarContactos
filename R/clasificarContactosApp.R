@@ -12,7 +12,6 @@
 clasificarContactosApp <- function(path){
   #path <- "C:/Users/nacho/Desktop/The_Bridge/temario/DATA_NOV2019-master/R/clasificarContactos/"
   tryCatch(expr = {
-    
     library(logging)
     
     addHandler(writeToFile, logger = 'log', file = paste0(path, "/log/logfile.log"))
@@ -29,8 +28,18 @@ clasificarContactosApp <- function(path){
     loginfo("Datos leidos.", logger = 'log')
     
     loginfo("Procesando los datos...", logger = 'log')
-    datos <- preProcesarDatos(datos, config)
+    splitDatos <- preProcesarDatos(datos, config)
     loginfo("Datos procesados.", logger = 'log')
+    
+    loginfo("Generando modelo...", logger = 'log')
+    output <- generarModelo(splitDatos, config)
+    loginfo("Modelo generado.", logger = 'log')
+    
+    loginfo("Generando output...", logger = 'log')
+    generarOutput(output, config, path)
+    loginfo("Output generado.", logger = 'log')
+    
+    
   }, error = function(e){
   
     logerror("La aplicación ha petado...", logger = 'log')
