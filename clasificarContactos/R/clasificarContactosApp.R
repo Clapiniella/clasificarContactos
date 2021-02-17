@@ -1,5 +1,3 @@
-
-
 #' @title clasificarContactosApp
 #' @description Funcion principal del paquete de clasificarContactos
 #'
@@ -8,15 +6,14 @@
 #' @export
 #' @import logging
 #'
-#' @author Nacho
+#' @author Clara
 clasificarContactosApp <- function(path){
-  #path <- "C:/Users/nacho/Desktop/The_Bridge/temario/DATA_NOV2019-master/R/clasificarContactos/"
-  path <- "/Users/nacho/Desktop/The_Bridge/Alumno/temario/DATA_NOV2019-master/R/clasificarContactos/"
-  tryCatch(expr = {
-    library(logging)
-    
-    addHandler(writeToFile, logger = 'log', file = paste0(path, "/log/logfile.log"))
   
+  tryCatch(expr = {
+    
+    library(logging)
+    #generar el manejado de log
+    addHandler(writeToFile, logger = 'log', file = paste0(path, "log/logfile.log"))
     loginfo("Empezamos la app...", logger = 'log')
     
     loginfo("Leyendo el Config...", logger = 'log')

@@ -1,16 +1,16 @@
-lapply(c("dummies", "logging", "xgboost", "XML"), require, character.only = T)
+lapply(c("dummies", "logging", "xgboost", "XML"), require, character.only = TRUE)
 
-Directorio <- "C:/Users/nacho/Desktop/The_Bridge/temario/DATA_NOV2019-master/R/clasificarContactos/"
+path <- "C:/Users/clara/Documents/clasificarContactos/clasificarContactos/"
 
-setwd(Directorio)
-carpetaScripts <- paste0(Directorio, "R/")
+setwd(path)
 
 #List files nos devuelve los archivos dentro del directorio.
 
 lapply(paste0("R/", list.files(path = "R/", recursive = TRUE)), source)
 
-#debug(clasificarContactosApp)
+debug(clasificarContactosApp)
+#si no quiero ir linea por linea añadir browser()
 
-clasificarContactosApp(Directorio)
+clasificarContactosApp(path)
 
-#undebug(clasificarContactosApp)
+undebug(clasificarContactosApp)
